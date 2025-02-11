@@ -1,7 +1,7 @@
 const { Cart, CartItem, Equipment, User } = require('../models/models');
 
 class CartController {
-    // Получение корзины (Cart) для пользователя
+    
     async getCart(req, res) {
         try {
             const userId = req.user.userId;
@@ -30,13 +30,13 @@ class CartController {
         }
     }
 
-    // Добавление оборудования (Equipment) в корзину
+    
     async addItem(req, res) {
         try {
             const userId = req.user.userId;
             const { equipmentId, quantity } = req.body;
 
-            // Проверяем наличие оборудования по его ID
+            
             const equipment = await Equipment.findByPk(equipmentId);
             if (!equipment) {
                 return res.status(404).json({ message: 'Оборудование не найдено.' });
@@ -54,7 +54,7 @@ class CartController {
                 cart = await Cart.create({ userId });
             }
 
-            // Если в корзине уже есть товары, проверяем, что они от того же поставщика
+            
             if (cart.CartItems && cart.CartItems.length > 0) {
                 const existingSupplierId = cart.CartItems[0].Equipment.supplierId;
                 if (existingSupplierId !== equipment.supplierId) {
@@ -86,7 +86,7 @@ class CartController {
         }
     }
 
-    // Удаление оборудования из корзины
+    
     async removeItem(req, res) {
         try {
             const userId = req.user.userId;
@@ -114,7 +114,7 @@ class CartController {
         }
     }
 
-    // Обновление количества выбранного оборудования в корзине
+    
     async updateItemQuantity(req, res) {
         try {
             const userId = req.user.userId;
@@ -144,7 +144,7 @@ class CartController {
         }
     }
 
-    // Очистка корзины
+    
     async clearCart(req, res) {
         try {
             const userId = req.user.userId;

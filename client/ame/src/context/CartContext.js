@@ -27,7 +27,7 @@ export const CartProvider = ({ children }) => {
     const fetchCart = async () => {
         setLoading(true);
         try {
-            // Обновлённый эндпоинт для корзины
+            
             const response = await axios.get('/api/carts', {
                 headers: {
                     Authorization: `Bearer ${authData.token}`,
@@ -52,9 +52,9 @@ export const CartProvider = ({ children }) => {
         setSnackbar({ ...snackbar, open: false });
     };
 
-    // Функция добавления оборудования в корзину
+    
     const addToCart = async (equipment, quantity) => {
-        // Проверяем, что товары в корзине принадлежат одному поставщику
+        
         if (cartItems.length > 0 && cartItems[0].Equipment.supplierId !== equipment.supplierId) {
             setError('Вы можете добавлять товары только от одного поставщика.');
             handleSnackbarOpen('Вы можете добавлять товары только от одного поставщика.', 'error');
@@ -62,7 +62,7 @@ export const CartProvider = ({ children }) => {
         }
 
         try {
-            // Эндпоинт для добавления в корзину обновлён на /api/carts/add
+            
             const response = await axios.post(
                 '/api/carts/add',
                 { equipmentId: equipment.id, quantity },
@@ -93,7 +93,7 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    // Функция удаления оборудования из корзины
+    
     const removeFromCart = async (equipmentId) => {
         try {
             await axios.delete(`/api/carts/remove/${equipmentId}`, {
@@ -110,7 +110,7 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    // Функция обновления количества оборудования в корзине
+    
     const updateQuantity = async (equipmentId, quantity) => {
         try {
             const response = await axios.put(
@@ -138,7 +138,7 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    // Функция очистки корзины
+    
     const clearCart = async () => {
         try {
             await axios.delete('/api/carts/clear', {
@@ -155,7 +155,7 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    // Вычисляем общую сумму заказа
+    
     const totalAmount = cartItems.reduce((acc, item) => {
         if (item.Equipment && item.Equipment.price) {
             return acc + item.Equipment.price * item.quantity;
@@ -169,7 +169,7 @@ export const CartProvider = ({ children }) => {
             addToCart,
             removeFromCart,
             updateQuantity,
-            clearCart, // Убедитесь, что функция присутствует
+            clearCart, 
             totalAmount,
             loading,
             error,

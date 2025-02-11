@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 class EquipmentController {
-    // Создание нового оборудования
+    
     async create(req, res) {
         try {
             const { name, model, description, price, serialNumber } = req.body;
@@ -35,7 +35,7 @@ class EquipmentController {
         }
     }
 
-    // Получение оборудования по ID
+    
     async findOne(req, res) {
         try {
             const equipment = await Equipment.findByPk(req.params.id, {
@@ -51,7 +51,7 @@ class EquipmentController {
         }
     }
 
-    // Получение списка всего оборудования
+    
     async findAll(req, res) {
         try {
             const equipments = await Equipment.findAll({
@@ -64,7 +64,7 @@ class EquipmentController {
         }
     }
 
-    // Обновление информации об оборудовании
+    
     async update(req, res) {
         try {
             const { name, description, price } = req.body;
@@ -98,7 +98,7 @@ class EquipmentController {
         }
     }
 
-    // Удаление оборудования
+    
     async delete(req, res) {
         try {
             const equipment = await Equipment.findByPk(req.params.id);
@@ -115,7 +115,7 @@ class EquipmentController {
         }
     }
 
-    // Получение списка оборудования по поставщику
+    
     async findBySupplier(req, res) {
         try {
             const { supplierId } = req.params;

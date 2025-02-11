@@ -1,4 +1,4 @@
-// src/components/SupplierAdmin.js
+
 
 import React, { useEffect, useState, useContext } from 'react';
 import axios from '../api/axiosConfig';
@@ -24,7 +24,7 @@ function SupplierAdmin() {
 
     useEffect(() => {
         fetchReviews();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        
     }, []);
 
     const fetchReviews = async () => {

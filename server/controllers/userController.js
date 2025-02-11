@@ -7,7 +7,7 @@ const path = require('path');
 class UserController {
     async registration(req, res) {
         try {
-            // Извлекаем новые поля: firstName, lastName, email, password, phone, birthDate, description
+            
             const { firstName, lastName, email, password, phone, birthDate, description } = req.body;
 
             const existingUser = await User.findOne({ where: { email } });
@@ -23,12 +23,12 @@ class UserController {
                 if (!fs.existsSync(uploadDir)) {
                     fs.mkdirSync(uploadDir, { recursive: true });
                 }
-                // Формируем уникальное имя файла
+                
                 photoPath = `/uploads/users/${Date.now()}_${req.file.originalname}`;
                 fs.writeFileSync(path.join(uploadDir, `${Date.now()}_${req.file.originalname}`), req.file.buffer);
             }
 
-            // Создаем пользователя с использованием firstName и lastName
+            
             const user = await User.create({
                 firstName,
                 lastName,
@@ -47,7 +47,7 @@ class UserController {
         }
     }
 
-    // Остальные методы остаются без изменений...
+    
 
     async login(req, res) {
         try {

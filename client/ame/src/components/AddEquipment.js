@@ -8,7 +8,7 @@ function AddEquipment() {
     const { authData } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    // Добавлены поля model и serialNumber
+    
     const [formData, setFormData] = useState({
         name: '',
         model: '',
@@ -30,7 +30,7 @@ function AddEquipment() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Проверка обязательных полей
+        
         if (!formData.name || !formData.model || !formData.description || !formData.price || !formData.serialNumber) {
             setError('Пожалуйста, заполните все обязательные поля.');
             return;
@@ -48,7 +48,7 @@ function AddEquipment() {
         }
 
         try {
-            // Отправляем запрос на создание оборудования
+            
             await axios.post(`/api/equipments`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data',

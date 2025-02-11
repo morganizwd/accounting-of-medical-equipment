@@ -11,7 +11,7 @@ const {
 
 class OrderController {
 
-    // Создание заказа на основе содержимого корзины (Cart)
+    
     async createOrder(req, res) {
         try {
             const { deliveryAddress, description } = req.body;
@@ -35,19 +35,19 @@ class OrderController {
                 return res.status(400).json({ message: 'Ваша корзина пуста' });
             }
 
-            // Вычисляем общую стоимость заказа
+            
             const totalCost = cart.CartItems.reduce(
                 (acc, item) => acc + item.Equipment.price * item.quantity,
                 0
             );
 
-            // Определяем, что все товары принадлежат одному поставщику
+            
             const supplierIds = [...new Set(cart.CartItems.map(item => item.Equipment.supplierId))];
             if (supplierIds.length > 1) {
                 return res.status(400).json({ message: 'Все товары должны принадлежать одному поставщику' });
             }
 
-            // Создаем заказ
+            
             const order = await Order.create({
                 deliveryAddress,
                 description,
@@ -61,16 +61,16 @@ class OrderController {
                 supplierId: supplierIds[0],
             });
 
-            // Формируем элементы заказа
+            
             const orderItems = cart.CartItems.map(item => ({
                 orderId: order.id,
-                equipmentId: item.equipmentId, // либо item.Equipment.id, т.к. поле в CartItem называется equipmentId
+                equipmentId: item.equipmentId, 
                 quantity: item.quantity,
             }));
 
             await OrderItem.bulkCreate(orderItems);
 
-            // Очистка корзины
+            
             await CartItem.destroy({ where: { cartId: cart.id } });
 
             console.log('Order created successfully:', order);
@@ -81,7 +81,7 @@ class OrderController {
         }
     }
 
-    // Получение заказов пользователя
+    
     async getUserOrders(req, res) {
         try {
             const userId = req.user.userId;
@@ -111,7 +111,7 @@ class OrderController {
         }
     }
 
-    // Получение заказа по ID
+    
     async getOrderById(req, res) {
         try {
             const { id } = req.params;
@@ -140,7 +140,7 @@ class OrderController {
         }
     }
 
-    // Обновление статуса заказа
+    
     async updateOrderStatus(req, res) {
         try {
             const { id } = req.params;
@@ -167,7 +167,7 @@ class OrderController {
         }
     }
 
-    // Обновление времени выполнения заказа (только для поставщика)
+    
     async updateOrderCompletionTime(req, res) {
         try {
             const { id } = req.params;
@@ -179,7 +179,7 @@ class OrderController {
                 return res.status(404).json({ message: 'Заказ не найден' });
             }
 
-            // Проверка: только поставщик, связанный с заказом, может обновить время выполнения
+            
             const supplierId = req.user.supplierId;
             if (order.supplierId !== supplierId) {
                 return res.status(403).json({ message: 'У вас нет прав для обновления этого заказа.' });
@@ -195,7 +195,7 @@ class OrderController {
         }
     }
 
-    // Удаление заказа (только пользователь, создавший заказ)
+    
     async deleteOrder(req, res) {
         try {
             const { id } = req.params;
@@ -220,7 +220,7 @@ class OrderController {
         }
     }
 
-    // Получение заказов поставщика (Supplier)
+    
     async getSupplierOrders(req, res) {
         try {
             const supplierId = req.user.supplierId;

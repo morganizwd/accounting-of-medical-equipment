@@ -6,7 +6,7 @@ const path = require('path');
 const { Op } = require('sequelize');
 
 class SupplierController {
-    // Регистрация поставщика
+    
     async registration(req, res) {
         try {
             const {
@@ -46,7 +46,7 @@ class SupplierController {
         }
     }
 
-    // Вход поставщика
+    
     async login(req, res) {
         try {
             const { email, password } = req.body;
@@ -74,7 +74,7 @@ class SupplierController {
         }
     }
 
-    // Аутентификация поставщика
+    
     async auth(req, res) {
         try {
             const token = req.headers.authorization.split(' ')[1];
@@ -92,7 +92,7 @@ class SupplierController {
         }
     }
 
-    // Получение информации о поставщике по ID
+    
     async findOne(req, res) {
         try {
             const { id } = req.params;
@@ -118,7 +118,7 @@ class SupplierController {
         }
     }
 
-    // Получение списка поставщиков с фильтрами и вычисляемой средней оценкой
+    
     async findAll(req, res) {
         try {
             const { companyName, address, averageRating, limit, offset } = req.query;
@@ -179,7 +179,7 @@ class SupplierController {
         }
     }
 
-    // Обновление информации о поставщике
+    
     async update(req, res) {
         try {
             const {
@@ -231,7 +231,7 @@ class SupplierController {
         }
     }
 
-    // Удаление поставщика
+    
     async delete(req, res) {
         try {
             const supplier = await Supplier.findByPk(req.params.id);
